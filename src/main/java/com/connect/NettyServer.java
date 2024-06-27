@@ -1,5 +1,6 @@
 package com.connect;
 
+import com.connect.location.LocationDecoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -33,7 +34,8 @@ public class NettyServer {
                             ch.pipeline()
                                     .addLast(new HttpServerCodec())
                                     .addLast(new HttpObjectAggregator(1048576))
-                                    .addLast(new MeteringDecoder());
+                                    .addLast(new MeteringDecoder())
+                                    .addLast(new LocationDecoder());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
