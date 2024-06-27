@@ -1,8 +1,9 @@
-package netty.decoders;
+package com.connect.metering;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.QueryStringDecoder;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package database;
+package com.connect.storage;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-public class HikariDAO {
+public class DatabaseModule {
     private static HikariConfig config = new HikariConfig();
     private static HikariDataSource ds;
 

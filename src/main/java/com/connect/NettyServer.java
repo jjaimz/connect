@@ -1,4 +1,4 @@
-package netty;
+package com.connect;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,7 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
-import netty.decoders.MeteringDecoder;
+import com.connect.metering.MeteringDecoder;
 
 public class NettyServer {
 
