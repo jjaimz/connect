@@ -2,10 +2,7 @@ package com.connect;
 
 import com.connect.location.LocationDecoder;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -13,17 +10,19 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import com.connect.metering.MeteringDecoder;
 
-public class NettyServer {
+public class NettyServer implements LifecycleObject{
 
     private int port;
+    private EventLoopGroup bossGroup;
+    private EventLoopGroup workerGroup;
 
     public NettyServer(int port) {
         this.port = port;
     }
 
-    public void run() throws Exception {
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+    public void start() throws Exception {
+        bossGroup = new NioEventLoopGroup();
+        workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
@@ -43,16 +42,23 @@ public class NettyServer {
 
 
             ChannelFuture f = b.bind(port).sync();
-
+            System.out.println("Netty server started");
             f.channel().closeFuture().sync();
         } finally {
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
+            stop();
         }
+
     }
 
-    public static void main(String[] args) throws Exception {
-        new NettyServer(1092).run();
+    @Override
+    public void stop() {
+        if (bossGroup != null) {
+            bossGroup.shutdownGracefully();
+        }
+        if (workerGroup != null) {
+            workerGroup.shutdownGracefully();
+        }
+        System.out.println("Netty server stopped");
     }
 }
 

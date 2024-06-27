@@ -1,6 +1,6 @@
 package com.connect.storage;
 
-import com.connect.tasks.Task;
+//import com.connect.tasks.Task;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -28,33 +28,33 @@ public class DatabaseModule {
         return ds.getConnection();
     }
 
-    public static List<Task> getTasks() throws SQLException {
-        List<Task> tasks = new ArrayList<Task>();
-
-        try (Connection connection = DatabaseModule.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM tasks");
-
-            ResultSet resultSet = statement.executeQuery();
-
-            Task task = null;
-
-            while (resultSet.next()) {
-                task = new Task();
-                task.setTaskId(resultSet.getInt("taskid"));
-                task.setTaskowner(resultSet.getString("taskowner"));
-                task.setTask(resultSet.getString("task"));
-                task.setAttributes(resultSet.getString("attributes"));
-                task.setExecuteon(resultSet.getString("executeon"));
-                task.setStatus(resultSet.getString("status"));
-
-                if (task != null) {
-                    tasks.add(task);
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return tasks;
-    }
+//    public static List<Task> getTasks() throws SQLException {
+//        List<Task> tasks = new ArrayList<Task>();
+//
+//        try (Connection connection = DatabaseModule.getConnection()) {
+//            PreparedStatement statement = connection.prepareStatement("SELECT * FROM tasks");
+//
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            Task task = null;
+//
+//            while (resultSet.next()) {
+//                task = new Task();
+//                task.setTaskId(resultSet.getInt("taskid"));
+//                task.setTaskowner(resultSet.getString("taskowner"));
+//                task.setTask(resultSet.getString("task"));
+//                task.setAttributes(resultSet.getString("attributes"));
+//                task.setExecuteon(resultSet.getString("executeon"));
+//                task.setStatus(resultSet.getString("status"));
+//
+//                if (task != null) {
+//                    tasks.add(task);
+//                }
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return tasks;
+//    }
 }
