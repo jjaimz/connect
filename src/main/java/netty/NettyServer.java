@@ -8,6 +8,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
 import netty.decoders.MeteringDecoder;
 
 public class NettyServer {
@@ -29,6 +31,8 @@ public class NettyServer {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
+                                    .addLast(new HttpServerCodec())
+                                    .addLast(new HttpObjectAggregator(1048576))
                                     .addLast(new MeteringDecoder());
                         }
                     })
