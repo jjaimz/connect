@@ -28,7 +28,7 @@ public class DatabaseModule {
         return ds.getConnection();
     }
 
-    public List<Task> getTasks() throws SQLException {
+    public static List<Task> getTasks() throws SQLException {
         List<Task> tasks = new ArrayList<Task>();
 
         try (Connection connection = DatabaseModule.getConnection()) {
